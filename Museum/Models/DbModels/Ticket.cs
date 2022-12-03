@@ -7,6 +7,7 @@ namespace Museum.Models.DbModels
         public Guid Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string? UserId { get; set; }
         public bool IsChild { get; set; }
         public DateTime VisitTime { get; set; }
         public float Price { get; set; }

@@ -1,54 +1,36 @@
 ﻿@model Museum.Models.DtoModels.ExhibitDto
-
 @{
     ViewData["Title"] = "Details";
+    var photoPath = "~/images/" + (Model.PhotoPath ?? "noimage.jpg");
 }
-
-<h1>Details</h1>
-
 <div>
-    <h4>ExhibitDto</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Descrition)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Descrition)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PhotoPath)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PhotoPath)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IconPath)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IconPath)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ExhibitCategoryName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ExhibitCategoryName)
-        </dd>
-    </dl>
+    <div >
+        
+            <div class="card-header text-center">
+                @Model.Name
+            </div>
+            <div class="pro-img-box text-center">
+                <img src="@photoPath" asp-append-version="true"
+                     width="250" height="250"  />
+            </div>
+            <div class="panel-body text-center">
+                <p>
+                  @Model.Descrition  
+                </p>
+            </div>
+       
+    </div>
 </div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
-</div>
+@if (User.IsInRole("Admin"))
+{
+    <div>
+        @Html.ActionLink("Изменить", "Edit", new { id = Model.Id}) |
+        <a asp-action="Index">Назад</a>
+    </div>
+}
+else
+{
+    <div>
+        <a asp-action="Index" asp-controller="Home">Назад</a>
+    </div>
+}

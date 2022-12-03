@@ -32,7 +32,7 @@ namespace Museum.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Register(RegisterViweModel registerViweModel)
         {
-            if (ModelState.IsValid)
+            try
             {
                 var user = new ApplicationUser
                 {
@@ -40,7 +40,7 @@ namespace Museum.Controllers
                     Email = registerViweModel.Email,
                     FirstName = registerViweModel.FirstName,
                     LastName = registerViweModel.LastName
-                   
+
                 };
                 var result = _userManager.CreateAsync(user, registerViweModel.Password);
                 if (result.Result.Succeeded)
@@ -56,8 +56,15 @@ namespace Museum.Controllers
                 {
                     ModelState.AddModelError(string.Empty, er.Description);
                 }
+                return View(registerViweModel);
             }
-            return View(registerViweModel);
+            catch (Exception)
+            {
+                return View(registerViweModel);
+            }
+               
+           
+            
         }
 
         [HttpGet]

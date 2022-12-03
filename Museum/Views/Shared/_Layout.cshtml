@@ -26,7 +26,6 @@
 
             @if (User.IsInRole("Admin"))
             {
-
                 <div class="row">
                     <div class="col-md-auto">
                         <div class="btn-outline-light">
@@ -43,7 +42,6 @@
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu5">
                                 <a asp-action="Index" asp-controller="Ticket" class="dropdown-item">Билеты</a>
                                 <div class="dropdown-divider"></div>
-                                <a asp-action="Index" asp-controller="Rooms" class="dropdown-item">Список помещений</a>
                                 <a asp-action="Index" asp-controller="Exhibit" class="dropdown-item">Список экспонатов</a>
                                 <a asp-action="Index" asp-controller="ExhibitCategory" class="dropdown-item">Список категорий экспонатов</a>
                             </ul>
@@ -55,7 +53,7 @@
             }
 
             <div>
-                <form class="col-12 col-lg-auto mb-3 mb-lg-0" asp-controller="Exhibit" asp-action="Find">
+                <form class="col-12 col-lg-auto mb-3 mb-lg-0" asp-controller="Home" asp-action="Find">
                     <input type="search" class="form-control" name="name" placeholder="Введите название экспаната"
                            aria-label="Search">
                 </form>
@@ -70,10 +68,16 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        @if (User.IsInRole("Manager") || User.IsInRole("Admin"))
+                        @if (User.IsInRole("User") || User.IsInRole("Admin"))
                         {
                             <li class="nav-item">
-                                <a asp-action="Index" asp-controller="Report" class="nav-link">Отчеты</a>
+                                <a asp-action="Index" asp-controller="Ticket" class="nav-link">Мои Билеты</a>
+                            </li>
+                        }
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a asp-action="Statistics" asp-controller="Ticket" class="nav-link">Посещаемость</a>
                             </li>
                         }
                     </ul>
@@ -106,9 +110,9 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted bg-dark">
         <div class="container">
-            &copy; 2022 - Museum - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2022 - Виртуальный музей
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

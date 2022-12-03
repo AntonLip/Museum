@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Museum.Models.DbModels;
 using Museum.Models.Interfaces.Service;
 
 namespace Museum.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ExhibitCategoryController : Controller
     {
         private readonly IExhibitCategoryService _exhibitCategoryService;

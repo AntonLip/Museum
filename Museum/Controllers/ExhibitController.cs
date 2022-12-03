@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Museum.Models.DtoModels;
 using Museum.Models.Interfaces.Service;
 
@@ -7,10 +9,13 @@ namespace Museum.Controllers
     public class ExhibitController : Controller
     {
         private readonly IExhibitService _exhibitService;
-        public ExhibitController(IExhibitService exhibitService)
+        private readonly IExhibitCategoryService _exhibitCategoryService;
+        public ExhibitController(IExhibitService exhibitService, IExhibitCategoryService exhibitCategoryService)
         {
             _exhibitService = exhibitService;
+            _exhibitCategoryService = exhibitCategoryService;
         }
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             try
@@ -24,11 +29,15 @@ namespace Museum.Controllers
                 return RedirectToAction("Error", "Home");
             }
         }
+        [Authorize(Roles = "Admin")]
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var types = await _exhibitCategoryService.GetAllAsync();
+            ViewBag.Types = new SelectList(types, "Id", "Name");
             return View();
         }
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Create(AddExhibitDto model)
         {
@@ -48,6 +57,7 @@ namespace Museum.Controllers
                 return RedirectToAction("Error", "Home");
             }
         }
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
@@ -55,10 +65,12 @@ namespace Museum.Controllers
             {
                 if (id == Guid.Empty)
                     return BadRequest();
-                var item = await _exhibitService.GetByIdAsync(id);
+                var item = await _exhibitService.GetByIdForUpdateAsync(id);
                 if (item is null)
                     return RedirectToAction("Error", "Home");
-
+                var types = await _exhibitCategoryService.GetAllAsync();
+                ViewBag.Types = new SelectList(types, "Id", "Name");
+                
                 return View(item);
             }
             catch (Exception ex)
@@ -67,6 +79,7 @@ namespace Museum.Controllers
                 return RedirectToAction("Error", "Home");
             }
         }
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Edit(AddExhibitDto model)
         {
@@ -105,6 +118,7 @@ namespace Museum.Controllers
                 return RedirectToAction("Error", "Home");
             }
         }
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(Guid id)
         {
             try

@@ -1,4 +1,5 @@
-﻿using Museum.Models.DbModels;
+﻿using Microsoft.EntityFrameworkCore;
+using Museum.Models.DbModels;
 using Museum.Models.Interfaces.Repository;
 
 namespace Museum.DataAccess
@@ -9,6 +10,11 @@ namespace Museum.DataAccess
             : base(dbContext)
         {
 
+        }
+        public List<Exhibit> GetByPartName(string name)
+        {
+            var items = _dbSet.AsNoTracking().Where(p => EF.Functions.Like(p.Name, string.Format("%{0}%", name))).ToList();            
+            return items;
         }
     }
 }

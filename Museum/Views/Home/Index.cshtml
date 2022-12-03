@@ -1,8 +1,45 @@
-﻿@{
+﻿@model IndexViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<div class="container">
+        <div class="row">
+            <div class="col">
+                <section class="panel">
+                    <div>
+                        <ul class="list-group list-group-flush">
+                            @foreach (var empl in Model.Category)
+                            {
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <a asp-controller="Home" asp-action="Sort" asp-route-id="@empl.Id">@empl.Name</a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </section>
+            </div>
+            <div class="col-9">
+                <div class="row product-list">
+                    @foreach (var empl in Model.Exhibits)
+                    {
+                        var photoPath = "~/images/" + (empl.PhotoPath ?? "noimage.jpg");
+                        <div class="col-md-4">
+                            <section class="panel">
+                                <div class="pro-img-box">
+                                    <img src="@photoPath" asp-append-version="true"
+                                         width="250" height="250" class="rounded-circle" />
+                                </div>
+                                <div class="panel-body text-center">
+                                    <h4>
+                                        <a asp-controller="Exhibit" asp-action="Details" asp-route-id="@empl.Id" class="pro-title">
+                                            @empl.Name
+                                        </a>
+                                    </h4>                                    
+                                </div>
+                            </section>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>

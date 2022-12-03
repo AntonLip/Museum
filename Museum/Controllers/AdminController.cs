@@ -34,7 +34,9 @@ namespace Museum.Controllers
             {
                 Id = user.Id,
                 UserName = user.UserName,
-                Email = user.Email
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName
             };
             var types = _roleManager.Roles;
             ViewBag.Types = new SelectList(types, "Id", "Name");

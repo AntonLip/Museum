@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
-using Microsoft.EntityFrameworkCore;
 using Museum.Models.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Museum.Models.Interfaces.Repository;
 
 namespace Museum.DataAccess
@@ -21,28 +21,23 @@ namespace Museum.DataAccess
             _dbSet.Add(model);
             await _context.SaveChangesAsync();
         }
-
         public TModel GetFirst(Func<TModel, bool> predicate)
         {
             return _dbSet.AsNoTracking().Where(predicate).FirstOrDefault();
         }
-
         public async Task<IEnumerable<TModel>> GetAllAsync(CancellationToken cancellationToken = default)
         {
             return await _dbSet.AsNoTracking().OrderBy(l => l.Id).ToListAsync();
         }
-
         public async Task<TModel> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
             return await _dbSet.FirstAsync(l => l.Id == id);
         }
-
         public async Task RemoveAsync(TModel model, CancellationToken cancellationToken = default)
         {
             _context.Entry(model).State = EntityState.Deleted;
             await _context.SaveChangesAsync();
         }
-
         public async Task UpdateAsync(TModel model, CancellationToken cancellationToken = default)
         {
             _context.Entry(model).State = EntityState.Modified;
@@ -62,7 +57,6 @@ namespace Museum.DataAccess
             var query = Include(includeProperties);
             return query.Where(predicate).ToList();
         }
-
         private IQueryable<TModel> Include(params Expression<Func<TModel, object>>[] includeProperties)
         {
             IQueryable<TModel> query = _dbSet.AsNoTracking();

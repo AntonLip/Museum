@@ -20,6 +20,9 @@ namespace Museum.Models
                 {
                     opt.MapFrom<ExhibitPhotoResolver>();
                 });
+            CreateMap<Exhibit, AddExhibitDto>()
+                .ForMember(x => x.IconPath, opt => opt.Ignore())
+                .ForMember(x => x.PhotoPath, opt => opt.Ignore());
         }
     }
 }

@@ -1,0 +1,56 @@
+﻿@model Museum.Models.DbModels.Ticket
+
+@{
+    ViewData["Title"] = "Details";
+}
+<div>
+
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt class="col-sm-2">
+            Детский
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IsChild)
+        </dd>
+        <dt class="col-sm-2">
+            Время посещения
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.VisitTime)
+        </dd>
+        <dt class="col-sm-2">
+            Стоимость
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+    </dl>
+</div>
+@if (User.IsInRole("Admin"))
+{
+    <div>
+        @Html.ActionLink("Изменить", "Edit", new { id = Model.Id }) |
+        <a asp-action="Index">Назад</a>
+    </div>
+}
+else
+{
+    <div>
+        @Html.ActionLink("Сохранить в pdf", "Save", new { id=Model.Id }) |
+        <a asp-action="Index">Назад</a>
+    </div>
+}
+

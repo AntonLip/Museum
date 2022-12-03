@@ -4,45 +4,58 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Заполните форму для добавления нового экспаната</h1>
 
-<h4>AddExhibitDto</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" enctype="multipart/form-data" >
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            <div class="form-group" hidden>
                 <label asp-for="Id" class="control-label"></label>
                 <input asp-for="Id" class="form-control" />
                 <span asp-validation-for="Id" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
+                <label asp-for="Name" class="control-label">Название</label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Descrition" class="control-label"></label>
+                <label asp-for="Descrition" class="control-label">Описание</label>
                 <input asp-for="Descrition" class="form-control" />
                 <span asp-validation-for="Descrition" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CategoryId" class="control-label"></label>
-                <input asp-for="CategoryId" class="form-control" />
+                <label asp-for="CategoryId" class="control-label">Тип заявки</label>
+                @Html.DropDownList("CategoryId", ViewBag.Types as SelectList)
                 <span asp-validation-for="CategoryId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <label asp-for="PhotoPath" class="control-label">Изображение</label>
+                <div class="custom-file">
+                    <input asp-for="PhotoPath" class="custom-file-input" id="customFile">
+                </div>
+                <span asp-validation-for="PhotoPath" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IconPath" class="control-label">Выберите иконку для отображения в списке</label>
+                <div class="custom-file">
+                    <input asp-for="IconPath" class="custom-file-input" id="customFile">
+                </div>
+                <span asp-validation-for="IconPath" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Добавить" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Назад</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

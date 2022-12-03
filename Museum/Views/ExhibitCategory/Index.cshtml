@@ -1,11 +1,8 @@
 ﻿@model IEnumerable<Museum.Models.DbModels.ExhibitCategory>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "КАТЕГОРИИ";
 }
-
-<h1>Index</h1>
-
 <p>
     <a asp-action="Create">ДОБАВИТЬ КАТЕГОРИЮ</a>
 </p>
@@ -13,10 +10,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                Идентификационный номер
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                Название
             </th>
             <th></th>
         </tr>
@@ -31,8 +28,8 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new {  id=item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.Id})
+                @Html.ActionLink("Изменить", "Edit", new {  id=item.Id }) |
+                @Html.ActionLink("Удалить", "Delete", new { id=item.Id})
             </td>
         </tr>
 }

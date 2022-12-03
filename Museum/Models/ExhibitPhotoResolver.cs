@@ -20,29 +20,23 @@ namespace Museum.Models
             try
             {
                 var item = _exhibitRepository.GetByIdAsync(source.Id).Result;
-                if (item is null)
+                if (_fileService.RemoveFile(item.PhotoPath))
                 {
                     var path = _fileService.UploadFile(source.PhotoPath);
-                    destination.IconPath = _fileService.UploadFile(source.IconPath);
+                    if (_fileService.RemoveFile(item.IconPath))
+                    {
+                        destination.IconPath = _fileService.UploadFile(source.IconPath);
+                    }
                     return path;
                 }
-                else
-                {
-                    if (_fileService.RemoveFile(item.PhotoPath))
-                    {
-                        var path = _fileService.UploadFile(source.PhotoPath);
-                        if (_fileService.RemoveFile(item.IconPath))
-                        {
-                            destination.IconPath = _fileService.UploadFile(source.IconPath);
-                        }
-                        return path;
-                    }
-                    return " ";
-                }
+                return " ";
+
             }
             catch (Exception ex)
             {
-                return ex.Message;
+                var path = _fileService.UploadFile(source.PhotoPath);
+                destination.IconPath = _fileService.UploadFile(source.IconPath);
+                return path;
             }
         }
     }

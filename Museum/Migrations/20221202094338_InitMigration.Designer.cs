@@ -11,7 +11,7 @@ using Museum.DataAccess;
 namespace Museum.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20221201123204_InitMigration")]
+    [Migration("20221202094338_InitMigration")]
     partial class InitMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -47,21 +47,21 @@ namespace Museum.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "0467cde0-6187-4524-b4a9-c113fc89cdcd",
+                            Id = "5c9d65d6-e3ee-4779-85cd-36daf14eaf42",
                             ConcurrencyStamp = "1",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "64aaaad2-91a7-4ce3-bf9e-5eb9dfeb2b95",
+                            Id = "01ea85ca-be1e-4c61-9f56-e14d1c205304",
                             ConcurrencyStamp = "2",
                             Name = "Warehouse",
                             NormalizedName = "WAREHOUSE"
                         },
                         new
                         {
-                            Id = "3616ac7f-19e5-419c-94dc-7357b3c88b66",
+                            Id = "c3cf0d0c-7136-4033-91c6-43a32461a12c",
                             ConcurrencyStamp = "3",
                             Name = "Shop",
                             NormalizedName = "SHOP"
@@ -153,8 +153,8 @@ namespace Museum.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "59e2e975-0d14-45e1-afaa-0ddb78bfc162",
-                            RoleId = "0467cde0-6187-4524-b4a9-c113fc89cdcd"
+                            UserId = "db7eb707-a967-4820-abd6-c6a54672d1e5",
+                            RoleId = "5c9d65d6-e3ee-4779-85cd-36daf14eaf42"
                         });
                 });
 
@@ -251,7 +251,7 @@ namespace Museum.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "59e2e975-0d14-45e1-afaa-0ddb78bfc162",
+                            Id = "db7eb707-a967-4820-abd6-c6a54672d1e5",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "avadvd",
                             Email = "admin@gmail.com",
@@ -261,7 +261,7 @@ namespace Museum.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAFJKmD10BIXG3YchfgxeTxVLPVmL3f1+9gCL2JkuBH9J2hRStJdc2TQHLP27iLtCw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELInpE890xSrZ3n2SS1tcPNSgOechU4Tqv4zICUIgmR/wrjrOU7RdRsMV5hQqiq/4Q==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "avebgdfvs",
@@ -336,6 +336,9 @@ namespace Museum.Migrations
 
                     b.Property<float>("Price")
                         .HasColumnType("REAL");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("VisitTime")
                         .HasColumnType("TEXT");

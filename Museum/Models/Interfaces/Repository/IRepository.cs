@@ -16,5 +16,6 @@ namespace Museum.Models.Interfaces.Repository
         Task RemoveAsync(TModel model, CancellationToken cancellationToken = default);
         List<TModel> GetWithInclude(Func<TModel, bool> predicate,
             params Expression<Func<TModel, object>>[] includeProperties);
+        
     }
 }

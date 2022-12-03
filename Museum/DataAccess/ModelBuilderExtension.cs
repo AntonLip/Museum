@@ -52,16 +52,9 @@ namespace Museum.DataAccess
                 new IdentityRole
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Name = "Warehouse",
+                    Name = "User",
                     ConcurrencyStamp = "2",
-                    NormalizedName = "WAREHOUSE"
-                },
-                new IdentityRole
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    Name = "Shop",
-                    ConcurrencyStamp = "3",
-                    NormalizedName = "SHOP"
+                    NormalizedName = "USER"
                 });
         }
 
